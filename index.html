@@ -1,0 +1,94 @@
+<!--
+ * @Author: haolian
+ * @Date: 2024-10-22 14:01:01
+ * @LastEditors: haolian
+ * @LastEditTime: 2024-11-03 18:38:20
+ * @Description: Do not edit
+ * @FilePath: /USB-Paint/index.html
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>usb-paint</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- cdn引入方式1 type="text/javascript"-->
+    <!-- <script src="./dist/usbpaint.iife.js"  type="text/javascript"></script>
+    <script>
+      new USBPaint({
+        target: document.querySelector("#root"),
+        lineOptions: {
+          lineWidth: 5,
+          lineColor: "red",
+          lineAlpha: 0.5,
+          lineSmooth: 1,
+          lineThin: 0.6,
+          lineStream: 1,
+          lineStart: 0,
+          lineEnd: 80,
+        },
+        showTools: true,
+        toolsConfig: {
+          tools: 'all',
+          position: 'top'
+          // {
+          //   x: 30,
+          //   y: 50,
+          //   direction: 'row' // column row
+          // },
+        },
+        showScale: true,
+      })
+    </script> -->
+
+    <!-- cdn方式引入2 type="module"-->
+    <!-- <script type="module">
+      import USBPaint from "./dist/USBPaint.js"
+      new USBPaint()
+    </script> -->
+
+    <!-- 本地开发 -->
+    <script type="module">
+      import USBPaint from "./src/main.ts"
+      new USBPaint({
+        target: document.querySelector("#root"),
+        // lineOptions: {
+        //   lineWidth: 5,
+        //   lineColor: "red",
+        //   lineAlpha: 0.5,
+        //   lineSmooth:  1,
+        //   lineThin:  0.6,
+        //   lineStream:  1,
+        //   lineStart: 0,
+        //   lineEnd: 80,
+        // },
+        showTools: true,
+        toolsConfig: {
+          tools: "all",// ["eraser", "paint", "trash", "export" ],
+          // position: 'top'
+          // {
+          //   x: 30,
+          //   y: 50,
+          //   direction: 'row' // column row
+          // },
+        },
+        // showScale: true,
+        // background: "#000"
+      })
+    </script>
+  </body>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    #root {
+      background: #fff;
+      height: 100vh;
+    }
+  </style>
+</html>
