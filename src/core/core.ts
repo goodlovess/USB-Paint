@@ -2,7 +2,7 @@
  * @Author: haolian
  * @Date: 2024-10-22 14:01:01
  * @LastEditors: haolian
- * @LastEditTime: 2024-11-03 17:08:57
+ * @LastEditTime: 2024-11-04 11:24:59
  * @Description: Do not edit
  * @FilePath: /USB-Paint/src/core/core.ts
  */
@@ -10,7 +10,7 @@ import Core from "./core.svelte";
 import type { SvelteComponent } from "svelte";
 import type { USBPaintOptionsType } from "./core.interface";
 
-export class USBDraw {
+export class USBPaint {
   public option: USBPaintOptionsType = {};
   public isInited: boolean = false;
 
@@ -103,5 +103,17 @@ export class USBDraw {
         background: this.option?.background,
       },
     });
+  }
+
+  // 获取canvas的图片数据（base64）
+  public exportImageData(): string {
+    const canvas = document.getElementById("usb-paint-canvas") as HTMLCanvasElement;
+    if (canvas) {
+      let imgType = "image/png";
+      const imageData = canvas.toDataURL(imgType);
+      return imageData;
+    } else {
+      return "";
+    }
   }
 }

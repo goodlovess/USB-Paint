@@ -3,6 +3,7 @@
   import { getStroke } from "perfect-freehand";
   import type { LineOptionsType, ToolsConfigType } from "./core.interface";
   import Tools from "../components/tools.svelte";
+  import { calcColorBrightness } from "../utils/calcColorBrightness";
 
   export let scale: number = 10;
   export let parentDom: HTMLElement;
@@ -160,7 +161,7 @@
         }
         break;
       case "export":
-        canvasEl && exportToPic(canvasEl, ctx2d);
+        canvasEl && exportToFile(canvasEl);
         break;
       default:
         break;
@@ -169,15 +170,23 @@
 
   // 设置pc端的鼠标样式
   const setPcCursor = (type: string) => {
-    if (!canvasEl || background) return;
+    if (!canvasEl) return;
+    const colorBrightness = calcColorBrightness(canvasEl, ctx2d);
+
     switch (type) {
       case "paint":
-        canvasEl.style.cursor =
-          "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItZWRpdC0yIj48cGF0aCBkPSJNMTcgM2EyLjgyOCAyLjgyOCAwIDEgMSA0IDRMNy41IDIwLjUgMiAyMmwxLjUtNS41TDE3IDN6Ij48L3BhdGg+PC9zdmc+) 0 20, auto";
+        const paintIcon =
+          colorBrightness == "white"
+            ? "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItZWRpdC0yIj48cGF0aCBkPSJNMTcgM2EyLjgyOCAyLjgyOCAwIDEgMSA0IDRMNy41IDIwLjUgMiAyMmwxLjUtNS41TDE3IDN6Ij48L3BhdGg+PC9zdmc+"
+            : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWVkaXQtMiI+PHBhdGggZD0iTTE3IDNhMi44MjggMi44MjggMCAxIDEgNCA0TDcuNSAyMC41IDIgMjJsMS41LTUuNUwxNyAzeiI+PC9wYXRoPjwvc3ZnPg==";
+        canvasEl.style.cursor = `url(${paintIcon}) 0 20, auto`;
         break;
       case "eraser":
-        canvasEl.style.cursor =
-          "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItZHJvcGxldCI+PHBhdGggZD0iTTEyIDIuNjlsNS42NiA1LjY2YTggOCAwIDEgMS0xMS4zMSAweiI+PC9wYXRoPjwvc3ZnPg==) 0 20, auto";
+        let eraserIcon =
+          colorBrightness == "white"
+            ? "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWNpcmNsZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiPjwvY2lyY2xlPjwvc3ZnPg=="
+            : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWNpcmNsZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiPjwvY2lyY2xlPjwvc3ZnPg==";
+        canvasEl.style.cursor = `url(${eraserIcon}) 0 20, auto`;
         break;
       default:
         canvasEl.style.cursor = "default";
@@ -185,12 +194,24 @@
     }
   };
 
-  // 导出为图片
-  const exportToPic = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
-    let imgType = "image/png";
-    const imageData = canvas.toDataURL(imgType);
-    imgUrl = imageData;
-    return imageData;
+  // 导出为图片文件
+  const exportToFile = (canvas: HTMLCanvasElement) => {
+    canvas.toBlob(blob => {
+      if (!blob) return;
+      // 创建一个URL对象，指向Blob数据
+      const url = URL.createObjectURL(blob);
+
+      // 创建一个隐藏的下载链接
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "canvas-image.png"; // 设置下载的文件名
+
+      // 触发点击事件下载图片
+      link.click();
+
+      // 释放URL对象
+      URL.revokeObjectURL(url);
+    }, "image/png"); // 指定图片格式为PNG
   };
 </script>
 
@@ -199,7 +220,7 @@
     <Tools {toolsConfig} on:selectTool={handleSelectTool} />
   {/if}
   <canvas id="usb-paint-canvas" style="touch-action: none;"></canvas>
-  <img src={imgUrl} style="height: 200px;" />
+  <img src={imgUrl} style="height: 200px;" alt="" />
 </div>
 
 <style lang="scss">
