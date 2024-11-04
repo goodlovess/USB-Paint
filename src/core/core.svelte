@@ -28,77 +28,81 @@
       ctx2d = canvasEl.getContext("2d") as CanvasRenderingContext2D;
       transRatio(canvasEl, ctx2d);
       setCanvasBgc();
-      freedomPaint(canvasEl, ctx2d);
+      freedomPaint();
     }
   });
 
   // 画笔工具
-  const freedomPaint = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
-    let isDrawing = false; // 判断是否正在绘制
-    let points: number[][] = [];
-    setPcCursor("paint");
+  const freedomPaint = () => {
+    if (canvasEl && ctx2d) {
+      let isDrawing = false; // 判断是否正在绘制
+      let points: number[][] = [];
 
-    // 设置绘制样式
-    if (lineOptions.lineColor) {
-      ctx.fillStyle = lineOptions.lineColor;
-    }
-    if (lineOptions.lineAlpha) {
-      ctx.globalAlpha = lineOptions.lineAlpha;
-    }
+      ctx2d.globalCompositeOperation = "source-over";
+      setPcCursor("paint");
 
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.imageSmoothingEnabled = true;
+      // 设置绘制样式
+      if (lineOptions.lineColor) {
+        ctx2d.fillStyle = lineOptions.lineColor;
+      }
+      if (lineOptions.lineAlpha) {
+        ctx2d.globalAlpha = lineOptions.lineAlpha;
+      }
 
-    // 开始绘制
-    canvas.addEventListener("pointerdown", e => {
-      e.preventDefault();
-      isDrawing = true;
-      points = [[e.offsetX, e.offsetY]];
+      ctx2d.lineCap = "round";
+      ctx2d.lineJoin = "round";
+      ctx2d.imageSmoothingEnabled = true;
 
-      // 捕获指针事件，以便在指针移出画布时仍然能继续绘制
-      canvas.setPointerCapture(e.pointerId);
-    });
+      // 开始绘制
+      canvasEl.addEventListener("pointerdown", e => {
+        e.preventDefault();
+        isDrawing = true;
+        points = [[e.offsetX, e.offsetY]];
 
-    // 绘制过程
-    canvas.addEventListener("pointermove", e => {
-      e.preventDefault();
-      if (!isDrawing) return; // 如果未按下鼠标，则跳过
-      points.push([e.offsetX, e.offsetY]);
-      const pathData = getStroke(points, {
-        simulatePressure: true,
-        size: isEraser ? eraserLineWidth : lineOptions.lineWidth, // 线条宽度
-        smoothing: lineOptions.lineSmooth, // 平滑度
-        thinning: lineOptions.lineThin, // 线条随压力变化
-        streamline: lineOptions.lineStream, // 线条流畅度
-        start: { taper: lineOptions.lineStart }, // 开始处圆滑过渡
-        end: { taper: lineOptions.lineEnd }, // 结束处圆滑过渡
-        easing: t => Math.sin((t * Math.PI) / 2), // 缓动函数
+        // 捕获指针事件，以便在指针移出画布时仍然能继续绘制
+        canvasEl?.setPointerCapture(e.pointerId);
       });
-      ctx.beginPath();
-      pathData.forEach(([x, y], index) => {
-        if (index === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
+
+      // 绘制过程
+      canvasEl.addEventListener("pointermove", e => {
+        e.preventDefault();
+        if (!isDrawing) return; // 如果未按下鼠标，则跳过
+        points.push([e.offsetX, e.offsetY]);
+        const pathData = getStroke(points, {
+          simulatePressure: true,
+          size: isEraser ? eraserLineWidth : lineOptions.lineWidth, // 线条宽度
+          smoothing: lineOptions.lineSmooth, // 平滑度
+          thinning: lineOptions.lineThin, // 线条随压力变化
+          streamline: lineOptions.lineStream, // 线条流畅度
+          start: { taper: lineOptions.lineStart }, // 开始处圆滑过渡
+          end: { taper: lineOptions.lineEnd }, // 结束处圆滑过渡
+          easing: t => Math.sin((t * Math.PI) / 2), // 缓动函数
+        });
+        ctx2d.beginPath();
+        pathData.forEach(([x, y], index) => {
+          if (index === 0) {
+            ctx2d.moveTo(x, y);
+          } else {
+            ctx2d.lineTo(x, y);
+          }
+        });
+        ctx2d.fill();
+        ctx2d.closePath();
       });
-      ctx.fill();
-      ctx.closePath();
-    });
 
-    // 停止绘制
-    canvas.addEventListener("pointerup", e => {
-      e.preventDefault();
-      isDrawing = false;
-      canvas.releasePointerCapture(e.pointerId); // 释放指针捕获
-    });
+      // 停止绘制
+      canvasEl.addEventListener("pointerup", e => {
+        e.preventDefault();
+        isDrawing = false;
+        canvasEl?.releasePointerCapture(e.pointerId); // 释放指针捕获
+      });
 
-    // 离开画布时停止绘制（可选，防止异常情况下未释放）
-    canvas.addEventListener("pointerleave", e => {
-      e.preventDefault();
-      isDrawing = false;
-    });
+      // 离开画布时停止绘制（可选，防止异常情况下未释放）
+      canvasEl.addEventListener("pointerleave", e => {
+        e.preventDefault();
+        isDrawing = false;
+      });
+    }
   };
 
   // 橡皮工具
@@ -107,7 +111,6 @@
       ctx2d.fillStyle = background;
       ctx2d.globalCompositeOperation = "source-over";
     } else {
-      console.log(2);
       ctx2d.globalCompositeOperation = "destination-out";
     }
   };
@@ -136,16 +139,13 @@
   };
 
   // 选择工具后操作
-  const handleSelectTool = (event: { detail: { tool: string } }) => {
+  export const handleSelectTool = (event: { detail: { tool: string } }) => {
     let tool = event.detail.tool;
     isEraser = false;
     setPcCursor(tool);
     switch (tool) {
       case "paint":
-        if (canvasEl && ctx2d) {
-          ctx2d.globalCompositeOperation = "source-over";
-          freedomPaint(canvasEl, ctx2d);
-        }
+        freedomPaint();
         break;
       case "eraser":
         isEraser = true;

@@ -2,7 +2,7 @@
  * @Author: haolian
  * @Date: 2024-10-22 14:01:01
  * @LastEditors: haolian
- * @LastEditTime: 2024-11-04 11:24:59
+ * @LastEditTime: 2024-11-04 17:17:22
  * @Description: Do not edit
  * @FilePath: /USB-Paint/src/core/core.ts
  */
@@ -106,7 +106,7 @@ export class USBPaint {
   }
 
   // 获取canvas的图片数据（base64）
-  public exportImageData(): string {
+  public exportToImage(): string {
     const canvas = document.getElementById("usb-paint-canvas") as HTMLCanvasElement;
     if (canvas) {
       let imgType = "image/png";
@@ -116,4 +116,25 @@ export class USBPaint {
       return "";
     }
   }
+
+  // 触发橡皮擦工具
+  public eraserTool = () => {
+    this.mainInstance?.handleSelectTool({
+      detail: { tool: "eraser" },
+    });
+  };
+
+  // 触发绘画工具
+  public freeDrawTool = () => {
+    this.mainInstance?.handleSelectTool({
+      detail: { tool: "paint" },
+    });
+  };
+
+  // 触发全部清除工具
+  public clearTool = () => {
+    this.mainInstance?.handleSelectTool({
+      detail: { tool: "trash" },
+    });
+  };
 }
