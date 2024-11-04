@@ -20,6 +20,7 @@
   let isEraser: boolean = false;
   const eraserLineWidth: number = 25;
   let imgUrl: string = "";
+  let colorBrightness: "white" | "black" = "white";
 
   onMount(() => {
     canvasEl = document.getElementById("usb-paint-canvas") as HTMLCanvasElement;
@@ -35,6 +36,7 @@
   // 画笔工具
   const freedomPaint = () => {
     if (canvasEl && ctx2d) {
+      colorBrightness = calcColorBrightness(canvasEl, ctx2d);
       let isDrawing = false; // 判断是否正在绘制
       let points: number[][] = [];
 
@@ -171,8 +173,6 @@
   // 设置pc端的鼠标样式
   const setPcCursor = (type: string) => {
     if (!canvasEl) return;
-    const colorBrightness = calcColorBrightness(canvasEl, ctx2d);
-
     switch (type) {
       case "paint":
         const paintIcon =

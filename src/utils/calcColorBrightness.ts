@@ -2,7 +2,7 @@
  * @Author: haolian
  * @Date: 2024-11-04 10:35:27
  * @LastEditors: haolian
- * @LastEditTime: 2024-11-04 10:40:13
+ * @LastEditTime: 2024-11-04 17:31:55
  * @Description: Do not edit
  * @FilePath: /USB-Paint/src/utils/calcColorBrightness.ts
  */
@@ -30,7 +30,7 @@ export const calcColorBrightness = (canvas: HTMLCanvasElement, ctx: CanvasRender
   const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
 
   // 判断背景色是偏白还是偏黑
-  if (brightness > 128) {
+  if (brightness > 128 || brightness == 0) {
     return "white";
   } else {
     return "black";
