@@ -2,7 +2,7 @@
  * @Author: haolian
  * @Date: 2024-10-22 14:01:01
  * @LastEditors: haolian
- * @LastEditTime: 2024-11-04 17:17:22
+ * @LastEditTime: 2024-11-04 17:27:31
  * @Description: Do not edit
  * @FilePath: /USB-Paint/src/core/core.ts
  */
@@ -64,7 +64,7 @@ export class USBPaint {
     }
     let tools: string[] = [];
     if (this.option?.toolsConfig?.tools === "all") {
-      tools = ["paint", "eraser", "trash", "panel", "export"];
+      tools = ["paint", "eraser", "trash", "export"]; //TODO:  "panel",
     } else if (this.option?.toolsConfig?.tools instanceof Array) {
       tools = this.option.toolsConfig.tools;
     }
