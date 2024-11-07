@@ -42,7 +42,7 @@ new USBPaint({
 ## 方法二：使用 CDN 直接插入到 HTML
 
 ```html
-<script src="usbdraw.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/usb-paint@latest/dist/usbpaint.iife.js" type="text/javascript"></script>
 <script>
   let a = new USBPaint({
     target: document.querySelector("#root"),

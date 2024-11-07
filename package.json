@@ -1,10 +1,29 @@
 {
   "name": "usb-paint",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A universal, simple, and beautiful hand-drawn style painting tool, USB-Paint. It can be introduced and used in any front-end framework or page.",
+  "repository": "https://github.com/goodlovess/USB-Paint.git",
   "type": "module",
-  "main": "usbdraw.iife.js",
-  "module": "usbdraw.js",
+  "main": "dist/usbdraw.iife.js",
+  "module": "dist/usbdraw.js",
+  "files": [
+    "dist",
+    "README_CN.md"
+  ],
+  "keywords": [
+    "paint",
+    "canvas",
+    "whiteboard",
+    "drawing tool",
+    "painting tool",
+    "hand-drawn style",
+    "绘画工具",
+    "绘图工具",
+    "手绘风格",
+    "白板"
+  ],
+  "author": "haolian93",
+  "license": "ISC",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
@@ -49,7 +68,7 @@
     }
   },
   "lint-staged": {
-    "*.{ts,js,svelte}": [
+    "*.{ts,svelte}": [
       "eslint --fix",
       "prettier --write"
     ]
