@@ -75,7 +75,7 @@
   {#each toolsConfig.tools || [] as tool (tool)}
     {#if toolsIcon[tool]}
       <svg
-        on:click={selectTool(tool)}
+        on:click={() => selectTool(tool)}
         viewBox="0 0 20 20"
         width={toolsConfig.iconsConfig?.size}
         height={toolsConfig.iconsConfig?.size}

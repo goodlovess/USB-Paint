@@ -2,7 +2,7 @@
  * @Author: haolian
  * @Date: 2024-10-22 14:01:01
  * @LastEditors: haolian
- * @LastEditTime: 2024-11-04 17:27:31
+ * @LastEditTime: 2024-11-06 20:17:34
  * @Description: Do not edit
  * @FilePath: /USB-Paint/src/core/core.ts
  */
@@ -88,15 +88,15 @@ export class USBPaint {
           tools,
           position: this.option?.toolsConfig?.position || "top",
           iconsConfig: {
-            size: 20,
-            width: 1.25,
-            color: "#000",
-            fill: "none",
+            size: this.option?.toolsConfig?.iconsConfig?.size || 20,
+            width: this.option?.toolsConfig?.iconsConfig?.width || 1.25,
+            color: this.option?.toolsConfig?.iconsConfig?.color || "#000",
+            fill: this.option?.toolsConfig?.iconsConfig?.fill || "none",
           },
           backgroud: {
-            color: "#fff",
-            border: "1px solid rgba(0,0,0,0.1)",
-            radius: 10,
+            color: this.option?.toolsConfig?.backgroud?.color || "#fff",
+            border: this.option?.toolsConfig?.backgroud?.border || "1px solid rgba(0,0,0,0.1)",
+            radius: this.option?.toolsConfig?.backgroud?.radius || 10,
           },
         },
         showScale: !!this.option?.showScale,
