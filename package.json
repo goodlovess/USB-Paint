@@ -1,11 +1,11 @@
 {
   "name": "usb-paint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A universal, simple, and beautiful hand-drawn style painting tool, USB-Paint. It can be introduced and used in any front-end framework or page.",
   "repository": "https://github.com/goodlovess/USB-Paint.git",
   "type": "module",
-  "main": "dist/usbdraw.iife.js",
-  "module": "dist/usbdraw.js",
+  "main": "dist/usbpaint.iife.js",
+  "module": "dist/usbpaint.js",
   "files": [
     "dist",
     "README_CN.md"

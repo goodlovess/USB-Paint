@@ -4437,18 +4437,21 @@ class USBPaint {
   }
   // init || 初始化
   _initRun() {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L, _M, _N, _O, _P, _Q, _R, _S, _T, _U, _V, _W, _X, _Y, _Z;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L, _M, _N, _O, _P, _Q, _R, _S, _T, _U, _V, _W, _X;
     this.isInited = true;
-    var target = document.querySelector("body");
-    if (typeof ((_a = this.option) == null ? void 0 : _a.target) === "string") {
+    var target;
+    if (typeof this.option.target === "string") {
       target = document.querySelector(this.option.target);
-    } else if (((_b = this.option) == null ? void 0 : _b.target) instanceof HTMLElement) {
+    } else if (this.option.target instanceof HTMLElement) {
       target = this.option.target;
     }
+    if (!(target instanceof HTMLElement)) {
+      target = document.querySelector("body");
+    }
     var tools = [];
-    if (((_d = (_c = this.option) == null ? void 0 : _c.toolsConfig) == null ? void 0 : _d.tools) === "all") {
+    if (((_b = (_a = this.option) == null ? void 0 : _a.toolsConfig) == null ? void 0 : _b.tools) === "all") {
       tools = ["paint", "eraser", "trash", "export"];
-    } else if (((_f = (_e = this.option) == null ? void 0 : _e.toolsConfig) == null ? void 0 : _f.tools) instanceof Array) {
+    } else if (((_d = (_c = this.option) == null ? void 0 : _c.toolsConfig) == null ? void 0 : _d.tools) instanceof Array) {
       tools = this.option.toolsConfig.tools;
     }
     this.mainInstance = new Core({
@@ -4458,33 +4461,33 @@ class USBPaint {
         parentDom: target,
         scale: this.option.scale || 10,
         lineOptions: {
-          lineWidth: ((_h = (_g = this.option) == null ? void 0 : _g.lineOptions) == null ? void 0 : _h.lineWidth) || 4,
-          lineColor: ((_j = (_i = this.option) == null ? void 0 : _i.lineOptions) == null ? void 0 : _j.lineColor) || "#000",
-          lineAlpha: ((_l = (_k = this.option) == null ? void 0 : _k.lineOptions) == null ? void 0 : _l.lineAlpha) || 1,
-          lineSmooth: ((_n = (_m = this.option) == null ? void 0 : _m.lineOptions) == null ? void 0 : _n.lineSmooth) || 1,
-          lineThin: ((_p = (_o = this.option) == null ? void 0 : _o.lineOptions) == null ? void 0 : _p.lineThin) || 0.6,
-          lineStream: ((_r = (_q = this.option) == null ? void 0 : _q.lineOptions) == null ? void 0 : _r.lineStream) || 1,
-          lineStart: isNaN((_t = (_s = this.option) == null ? void 0 : _s.lineOptions) == null ? void 0 : _t.lineStart) ? 0 : (_v = (_u = this.option) == null ? void 0 : _u.lineOptions) == null ? void 0 : _v.lineStart,
-          lineEnd: isNaN((_x = (_w = this.option) == null ? void 0 : _w.lineOptions) == null ? void 0 : _x.lineEnd) ? 100 : (_z = (_y = this.option) == null ? void 0 : _y.lineOptions) == null ? void 0 : _z.lineEnd
+          lineWidth: ((_f = (_e = this.option) == null ? void 0 : _e.lineOptions) == null ? void 0 : _f.lineWidth) || 4,
+          lineColor: ((_h = (_g = this.option) == null ? void 0 : _g.lineOptions) == null ? void 0 : _h.lineColor) || "#000",
+          lineAlpha: ((_j = (_i = this.option) == null ? void 0 : _i.lineOptions) == null ? void 0 : _j.lineAlpha) || 1,
+          lineSmooth: ((_l = (_k = this.option) == null ? void 0 : _k.lineOptions) == null ? void 0 : _l.lineSmooth) || 1,
+          lineThin: ((_n = (_m = this.option) == null ? void 0 : _m.lineOptions) == null ? void 0 : _n.lineThin) || 0.6,
+          lineStream: ((_p = (_o = this.option) == null ? void 0 : _o.lineOptions) == null ? void 0 : _p.lineStream) || 1,
+          lineStart: isNaN((_r = (_q = this.option) == null ? void 0 : _q.lineOptions) == null ? void 0 : _r.lineStart) ? 0 : (_t = (_s = this.option) == null ? void 0 : _s.lineOptions) == null ? void 0 : _t.lineStart,
+          lineEnd: isNaN((_v = (_u = this.option) == null ? void 0 : _u.lineOptions) == null ? void 0 : _v.lineEnd) ? 100 : (_x = (_w = this.option) == null ? void 0 : _w.lineOptions) == null ? void 0 : _x.lineEnd
         },
-        showTools: !!((_A = this.option) == null ? void 0 : _A.showTools),
+        showTools: !!((_y = this.option) == null ? void 0 : _y.showTools),
         toolsConfig: {
           tools,
-          position: ((_C = (_B = this.option) == null ? void 0 : _B.toolsConfig) == null ? void 0 : _C.position) || "top",
+          position: ((_A = (_z = this.option) == null ? void 0 : _z.toolsConfig) == null ? void 0 : _A.position) || "top",
           iconsConfig: {
-            size: ((_F = (_E = (_D = this.option) == null ? void 0 : _D.toolsConfig) == null ? void 0 : _E.iconsConfig) == null ? void 0 : _F.size) || 20,
-            width: ((_I = (_H = (_G = this.option) == null ? void 0 : _G.toolsConfig) == null ? void 0 : _H.iconsConfig) == null ? void 0 : _I.width) || 1.25,
-            color: ((_L = (_K = (_J = this.option) == null ? void 0 : _J.toolsConfig) == null ? void 0 : _K.iconsConfig) == null ? void 0 : _L.color) || "#000",
-            fill: ((_O = (_N = (_M = this.option) == null ? void 0 : _M.toolsConfig) == null ? void 0 : _N.iconsConfig) == null ? void 0 : _O.fill) || "none"
+            size: ((_D = (_C = (_B = this.option) == null ? void 0 : _B.toolsConfig) == null ? void 0 : _C.iconsConfig) == null ? void 0 : _D.size) || 20,
+            width: ((_G = (_F = (_E = this.option) == null ? void 0 : _E.toolsConfig) == null ? void 0 : _F.iconsConfig) == null ? void 0 : _G.width) || 1.25,
+            color: ((_J = (_I = (_H = this.option) == null ? void 0 : _H.toolsConfig) == null ? void 0 : _I.iconsConfig) == null ? void 0 : _J.color) || "#000",
+            fill: ((_M = (_L = (_K = this.option) == null ? void 0 : _K.toolsConfig) == null ? void 0 : _L.iconsConfig) == null ? void 0 : _M.fill) || "none"
           },
           backgroud: {
-            color: ((_R = (_Q = (_P = this.option) == null ? void 0 : _P.toolsConfig) == null ? void 0 : _Q.backgroud) == null ? void 0 : _R.color) || "#fff",
-            border: ((_U = (_T = (_S = this.option) == null ? void 0 : _S.toolsConfig) == null ? void 0 : _T.backgroud) == null ? void 0 : _U.border) || "1px solid rgba(0,0,0,0.1)",
-            radius: ((_X = (_W = (_V = this.option) == null ? void 0 : _V.toolsConfig) == null ? void 0 : _W.backgroud) == null ? void 0 : _X.radius) || 10
+            color: ((_P = (_O = (_N = this.option) == null ? void 0 : _N.toolsConfig) == null ? void 0 : _O.backgroud) == null ? void 0 : _P.color) || "#fff",
+            border: ((_S = (_R = (_Q = this.option) == null ? void 0 : _Q.toolsConfig) == null ? void 0 : _R.backgroud) == null ? void 0 : _S.border) || "1px solid rgba(0,0,0,0.1)",
+            radius: ((_V = (_U = (_T = this.option) == null ? void 0 : _T.toolsConfig) == null ? void 0 : _U.backgroud) == null ? void 0 : _V.radius) || 10
           }
         },
-        showScale: !!((_Y = this.option) == null ? void 0 : _Y.showScale),
-        background: (_Z = this.option) == null ? void 0 : _Z.background
+        showScale: !!((_W = this.option) == null ? void 0 : _W.showScale),
+        background: (_X = this.option) == null ? void 0 : _X.background
       }
     });
   }

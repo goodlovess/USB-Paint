@@ -29,6 +29,8 @@ yarn add usb-paint
 
 ### Usage
 
+**Note**: When using it within a framework, ensure the DOM is fully loaded before accessing it. For example, in Vue, initialize it in the **onMounted** or later lifecycle hooks.
+
 ```js
 import USBPaint from "usb-paint";
 

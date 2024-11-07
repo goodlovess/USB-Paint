@@ -31,6 +31,8 @@ yarn add usb-paint
 
 ### 使用
 
+**注意**：在框架中使用时，需要确保dom已经加载了才能使用，比如在Vue中需要中**onMounted**或者之后的生命周期中实例化使用
+
 ```js
 import USBPaint from "usb-paint";
 

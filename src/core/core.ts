@@ -2,7 +2,7 @@
  * @Author: haolian
  * @Date: 2024-10-22 14:01:01
  * @LastEditors: haolian
- * @LastEditTime: 2024-11-06 20:17:34
+ * @LastEditTime: 2024-11-07 20:08:38
  * @Description: Do not edit
  * @FilePath: /USB-Paint/src/core/core.ts
  */
@@ -56,11 +56,15 @@ export class USBPaint {
   private _initRun(): void {
     this.isInited = true;
     // load element || 加载节点
-    let target = document.querySelector("body") as HTMLElement;
-    if (typeof this.option?.target === "string") {
+    let target: HTMLElement;
+    if (typeof this.option.target === "string") {
       target = document.querySelector(this.option.target) as HTMLElement;
-    } else if (this.option?.target instanceof HTMLElement) {
+    } else if (this.option.target instanceof HTMLElement) {
       target = this.option.target;
+    }
+    // @ts-ignore
+    if (!(target instanceof HTMLElement)) {
+      target = document.querySelector("body") as HTMLElement;
     }
     let tools: string[] = [];
     if (this.option?.toolsConfig?.tools === "all") {
@@ -68,8 +72,9 @@ export class USBPaint {
     } else if (this.option?.toolsConfig?.tools instanceof Array) {
       tools = this.option.toolsConfig.tools;
     }
+
     this.mainInstance = new Core({
-      target, // 挂载点
+      target: target, // 挂载点
       props: {
         parentDom: target,
         scale: this.option.scale || 10,
