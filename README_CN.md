@@ -2,10 +2,18 @@
 
 # USB-Paint
 
-一个通用的(**Universal**)、简洁的(**Simple**)、美观的(**Beautiful**) 绘画工具组件—**USB-Paint**。
+一个通用的(**Universal**)、简洁的(**Simple**)、美观的(**Beautiful**) **手绘风格**的绘画工具组件—**USB-Paint**。
 你也可以将它理解为一个即插即用的绘画面板工具，就像无处不在的**USB**接口一样，任何前端项目（原生html、Vue、React、Svelte、Angular）都可以快速引入使用。
 
----
+![](https://fastly.jsdelivr.net/gh/haolian93/picbed/readme/20241107103746.png)
+
+# 特性
+
+- **Universal**：支持多种前端框架，如原生html、Vue、React、Svelte、Angular
+- **Simple**：简洁的页面结构，没有复杂的样式，没有复杂的逻辑
+- **Beautiful**：美观的UI设计，支持多颜色/样式配置，支持自定义
+- 手绘风格
+- 支持多种画笔工具，画笔、橡皮擦、清除、导出图片等
 
 # 安装 & 使用
 
@@ -86,6 +94,8 @@ new USBPaint({
   background: "black",
 });
 ```
+
+![](https://fastly.jsdelivr.net/gh/haolian93/picbed/readme/usbpaint1.png)
 
 ## 一级参数
 

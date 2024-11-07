@@ -2,10 +2,18 @@ English | [简体中文](./README_CN.md)
 
 # USB-Paint
 
-A universal (**Universal**), simple (**Simple**), and beautiful (**Beautiful**) painting tool component—**USB-Paint**.
+A universal (**Universal**), simple (**Simple**), and beautiful (**Beautiful**) **Hand-drawn style** painting tool component—**USB-Paint**.
 You can think of it as a plug-and-play drawing panel tool, like the ubiquitous **USB** interface, which can be quickly integrated into any frontend project (native HTML, Vue, React, Svelte, Angular).
 
----
+![](https://fastly.jsdelivr.net/gh/haolian93/picbed/readme/20241107103746.png)
+
+# Features
+
+- **Universal**: Supports multiple frontend frameworks, such as native HTML, Vue, React, Svelte, and Angular
+- **Simple**: Clean page structure with no complex styles or logic
+- **Beautiful**: Attractive UI design with multi-color/style options and customization support
+- Hand-drawn style
+- Supports various drawing tools, including brush, eraser, clear, and export image functions
 
 # Installation & Usage
 
@@ -82,6 +90,8 @@ new USBPaint({
   background: "black",
 });
 ```
+
+![](https://fastly.jsdelivr.net/gh/haolian93/picbed/readme/usbpaint1.png)
 
 ## Primary Parameters
 
