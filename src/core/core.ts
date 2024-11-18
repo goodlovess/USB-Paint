@@ -2,7 +2,7 @@
  * @Author: haolian
  * @Date: 2024-10-22 14:01:01
  * @LastEditors: haolian
- * @LastEditTime: 2024-11-07 20:08:38
+ * @LastEditTime: 2024-11-18 14:56:44
  * @Description: Do not edit
  * @FilePath: /USB-Paint/src/core/core.ts
  */
@@ -141,5 +141,10 @@ export class USBPaint {
     this.mainInstance?.handleSelectTool({
       detail: { tool: "trash" },
     });
+  };
+
+  // 是否已经绘画了
+  public isPaint = () => {
+    return this.mainInstance?.isPaint();
   };
 }

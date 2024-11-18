@@ -4192,6 +4192,7 @@ function instance($$self, $$props, $$invalidate) {
   var ctx2d;
   var isEraser = false;
   var colorBrightness = "white";
+  var isPainted = false;
   onMount(() => {
     canvasEl = document.getElementById("usb-paint-canvas");
     if (canvasEl) {
@@ -4226,6 +4227,7 @@ function instance($$self, $$props, $$invalidate) {
       canvasEl.addEventListener("pointermove", (e) => {
         e.preventDefault();
         if (!isDrawing) return;
+        isPainted = true;
         points.push([e.offsetX, e.offsetY]);
         var pathData = ae(points, {
           simulatePressure: true,
@@ -4316,6 +4318,7 @@ function instance($$self, $$props, $$invalidate) {
           } else {
             ctx2d.clearRect(0, 0, canvasEl.width, canvasEl.height);
           }
+          isPainted = false;
         }
         break;
       case "export":
@@ -4350,6 +4353,9 @@ function instance($$self, $$props, $$invalidate) {
       URL.revokeObjectURL(url);
     }, "image/png");
   };
+  var isPaint = () => {
+    return isPainted;
+  };
   $$self.$$set = ($$props2) => {
     if ("scale" in $$props2) $$invalidate(4, scale = $$props2.scale);
     if ("parentDom" in $$props2) $$invalidate(5, parentDom = $$props2.parentDom);
@@ -4359,7 +4365,7 @@ function instance($$self, $$props, $$invalidate) {
     if ("toolsConfig" in $$props2) $$invalidate(1, toolsConfig = $$props2.toolsConfig);
     if ("background" in $$props2) $$invalidate(8, background = $$props2.background);
   };
-  return [showTools, toolsConfig, handleSelectTool, usbdScale, scale, parentDom, lineOptions, showScale, background];
+  return [showTools, toolsConfig, handleSelectTool, usbdScale, scale, parentDom, lineOptions, showScale, background, isPaint];
 }
 class Core extends SvelteComponent {
   constructor(options) {
@@ -4372,11 +4378,15 @@ class Core extends SvelteComponent {
       showScale: 7,
       toolsConfig: 1,
       background: 8,
-      handleSelectTool: 2
+      handleSelectTool: 2,
+      isPaint: 9
     }, add_css);
   }
   get handleSelectTool() {
     return this.$$.ctx[2];
+  }
+  get isPaint() {
+    return this.$$.ctx[9];
   }
 }
 class USBPaint {
@@ -4407,6 +4417,10 @@ class USBPaint {
           tool: "trash"
         }
       });
+    };
+    this.isPaint = () => {
+      var _a;
+      return (_a = this.mainInstance) == null ? void 0 : _a.isPaint();
     };
     this.option = opt || {};
     this.isInited = false;

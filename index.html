@@ -2,7 +2,7 @@
  * @Author: haolian
  * @Date: 2024-10-22 14:01:01
  * @LastEditors: haolian
- * @LastEditTime: 2024-11-07 19:26:08
+ * @LastEditTime: 2024-11-18 14:54:20
  * @Description: Do not edit
  * @FilePath: /USB-Paint/index.html
 -->
@@ -77,7 +77,7 @@
       // setTimeout(() => {
         
       // if() {}
-      new USBPaint({
+      let a = new USBPaint({
         target: document.querySelector(".test"),
         // target: document.getElementsByClassName("test"),
         lineOptions: {
@@ -111,21 +111,12 @@
             // radius: 10,
           },
         },
-        // background: "black"
+        background: "black"
       });
       // }, 0);
-      // setTimeout(() => {
-      //   console.log(1);
-      //   a.eraserTool();
-      //   setTimeout(() => {
-      //     console.log(2);
-      //     a.freeDrawTool();
-      //     setTimeout(() => {
-      //       console.log(3);
-      //       a.clearTool();
-      //     }, 3000);
-      //   }, 5000);
-      // }, 5000);
+      setTimeout(() => {
+        console.log(1, a.isPaint());
+      }, 5000);
     </script>
   </body>
   <style>

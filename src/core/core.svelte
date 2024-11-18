@@ -22,6 +22,8 @@
   let imgUrl: string = "";
   let colorBrightness: "white" | "black" = "white";
 
+  let isPainted: boolean = false;
+
   onMount(() => {
     canvasEl = document.getElementById("usb-paint-canvas") as HTMLCanvasElement;
     if (canvasEl) {
@@ -69,6 +71,10 @@
       canvasEl.addEventListener("pointermove", e => {
         e.preventDefault();
         if (!isDrawing) return; // 如果未按下鼠标，则跳过
+
+        // 已经绘画了
+        isPainted = true;
+
         points.push([e.offsetX, e.offsetY]);
         const pathData = getStroke(points, {
           simulatePressure: true,
@@ -160,6 +166,7 @@
           } else {
             ctx2d.clearRect(0, 0, canvasEl.width, canvasEl.height);
           }
+          isPainted = false;
         }
         break;
       case "export":
@@ -212,6 +219,10 @@
       // 释放URL对象
       URL.revokeObjectURL(url);
     }, "image/png"); // 指定图片格式为PNG
+  };
+
+  export const isPaint = () => {
+    return isPainted;
   };
 </script>
 
