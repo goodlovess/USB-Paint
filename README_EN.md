@@ -102,7 +102,7 @@ new USBPaint({
 | target      | No       | HTMLElement     | body element    | Target container, can be a DOM element or CSS selector                  |
 | lineOptions | No       | LineOptionsType | (Details below) | Configuration for brush line                                            |
 | showTools   | No       | boolean         | false           | Show toolbar or not                                                     |
-| toolsConfig | No       | ToolsConfigType | (Details below) | Toolbar configuration when `showTools` is `true`                        |
+| toolsConfig | No       | ToolsConfigType | (Details below) | Toolbar configuration when `showTools` is `true`                    |
 | background  | No       | string          | -               | Transparent by default; accepts Hex/RGB/HSL/HSB/color names (e.g., red) |
 
 ## Secondary Parameters
@@ -117,8 +117,8 @@ new USBPaint({
 | lineSmooth | No       | number | 1       | Softness of the brush line edges                      |
 | lineThin   | No       | number | 0.6     | Brush pressure's effect on stroke size                |
 | lineStream | No       | number | 1       | Degree of stroke simplification                       |
-| lineStart  | No       | number | 0–100   | Tapering at the start of the line                     |
-| lineEnd    | No       | number | 0–100   | Tapering options at the end of the line               |
+| lineStart  | No       | number | 0–100  | Tapering at the start of the line                     |
+| lineEnd    | No       | number | 0–100  | Tapering options at the end of the line               |
 
 ### ToolsConfigType
 
@@ -181,5 +181,5 @@ usbPaint.freeDrawTool();
 // Clear the canvas
 usbPaint.clearTool();
 // Actively obtain whether the drawing has been completed.
-usbPaint.isPiant();
+usbPaint.isPaint();
 ```

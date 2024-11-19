@@ -168,7 +168,7 @@ new USBPaint({
 | eraserTool    | 橡皮擦                                                                        | -        |
 | freeDrawTool  | 绘画                                                                          | -        |
 | clearTool     | 清除                                                                          | -        |
-| isPiant       | 是否已经绘画了(clearTool后为未绘画状态，只要动过笔eraserTool后也是绘画了状态) | boolean  |
+| isPaint       | 是否已经绘画了(clearTool后为未绘画状态，只要动过笔eraserTool后也是绘画了状态) | boolean  |
 
 ## 事件调用案例
 
@@ -185,5 +185,5 @@ usbPaint.freeDrawTool();
 // 主动触发使用画布清除功能
 usbPaint.clearTool();
 // 主动获取是否已经绘画了功能
-usbPaint.isPiant();
+usbPaint.isPaint();
 ```
