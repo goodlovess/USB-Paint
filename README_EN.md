@@ -180,4 +180,6 @@ usbPaint.eraserTool();
 usbPaint.freeDrawTool();
 // Clear the canvas
 usbPaint.clearTool();
+// Actively obtain whether the drawing has been completed.
+usbPaint.isPiant();
 ```

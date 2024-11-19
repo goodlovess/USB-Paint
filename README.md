@@ -184,4 +184,6 @@ usbPaint.eraserTool();
 usbPaint.freeDrawTool();
 // 主动触发使用画布清除功能
 usbPaint.clearTool();
+// 主动获取是否已经绘画了功能
+usbPaint.isPiant();
 ```
