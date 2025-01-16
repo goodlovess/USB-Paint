@@ -2,7 +2,7 @@
  * @Author: haolian
  * @Date: 2024-10-22 14:01:01
  * @LastEditors: haolian
- * @LastEditTime: 2024-11-18 14:56:44
+ * @LastEditTime: 2025-01-16 15:44:54
  * @Description: Do not edit
  * @FilePath: /USB-Paint/src/core/core.ts
  */
@@ -64,7 +64,7 @@ export class USBPaint {
     }
     // @ts-ignore
     if (!(target instanceof HTMLElement)) {
-      target = document.querySelector("body") as HTMLElement;
+      return;
     }
     let tools: string[] = [];
     if (this.option?.toolsConfig?.tools === "all") {
