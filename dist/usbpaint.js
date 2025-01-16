@@ -4460,7 +4460,7 @@ class USBPaint {
       target = this.option.target;
     }
     if (!(target instanceof HTMLElement)) {
-      target = document.querySelector("body");
+      return;
     }
     var tools = [];
     if (((_b = (_a = this.option) == null ? void 0 : _a.toolsConfig) == null ? void 0 : _b.tools) === "all") {
